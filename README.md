@@ -1,7 +1,10 @@
 xmltools
 ========
 
-XMLTools is Python based XML SAX parser to analisys and storing in database
+XMLTools is Python XML tool base on XML SAX parser provide analisys and another XML manipulation instrument.
+
+XML Statistics
+--------------
 
 Let's look example of usage:
 
