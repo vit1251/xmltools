@@ -45,7 +45,8 @@ class XMLToolsAnalizer(object):
             print("| {:40s} | {:8d} |".format(name, value))
 
 
-def main(argc, argv):
+def main():
+    argc, argv = len(sys.argv), sys.argv
     name = None
     if argc > 1:
         if argv[1] == "--help":
@@ -62,4 +63,4 @@ def main(argc, argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(len(sys.argv), sys.argv))
+    sys.exit(main())
