@@ -1,14 +1,14 @@
 #!/usr/bin/python
 
+import os
 import sys
-
-import xml.parsers.expat
 import collections
+import xml.parsers.expat
 
 
 class XMLToolsAnalizer(object):
     def __init__(self, name):
-        self._name = name
+        self._name = os.path.abspath(name)
         self._p = None
         self._cnt = collections.Counter()
         self._path = []
@@ -27,22 +27,23 @@ class XMLToolsAnalizer(object):
         #print 'End element:', name
 
     def char_data(self, data):
-        print 'Character data:', repr(data)
+        print('Character data: {data!r}'.format(data=data))
 
     def run(self):
+        # Step 1. Create parser
         self._p = xml.parsers.expat.ParserCreate()
         self._p.StartElementHandler = self.start_element
         self._p.EndElementHandler = self.end_element
         #self._p.CharacterDataHandler = self.char_data
-
-        stream = open(self._name, "r")
-        for block in stream:
-            self._p.Parse(block, 0)
-        self._p.Parse("", 1)
-        stream.close()
-        #
+        # Step 2. Reading source information
+        with open(self._name, "rb") as stream:
+            for block in stream:
+                self._p.Parse(block, 0)
+            self._p.Parse("", 1)
+            stream.close()
+        # Step 3. Show report
         for (name, value) in self._cnt.items():
-            print("| {:40s} | {:8d} |".format(name, value))
+            print("| {name:40s} | {value:8d} |".format(name=name, value=value))
 
 
 def main():
@@ -50,7 +51,7 @@ def main():
     name = None
     if argc > 1:
         if argv[1] == "--help":
-            print("Usage: {} [name]".format(argv[0]))
+            print("Usage: {programm} [name]".format(programm=argv[0]))
             return 0
         else:
             name = argv[1]

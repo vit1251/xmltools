@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name="xmltool",
-    version="0.1",
+    version="1.0",
     author="Vitold Sedyshev",
     author_email="vit1251@gmail.com",
     description="XML Analytics Tool",
